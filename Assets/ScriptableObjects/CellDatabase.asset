@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fced4aa8ecb145209e30cd45299ce98a, type: 3}
+  m_Name: CellDatabase
+  m_EditorClassIdentifier: 
+  cells:
+  - cellType: 0
+    cellName: 
+    prefab: {fileID: 0}
+    isWalkable: 1
+    editorColor: {r: 0.61960787, g: 0.61960787, b: 0.61960787, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 1
+    cellName: 
+    prefab: {fileID: 0}
+    isWalkable: 1
+    editorColor: {r: 0.29803923, g: 0.6862745, b: 0.3137255, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 2
+    cellName: 
+    prefab: {fileID: 2237199822373373664, guid: b8f2e4f42737ef2418b79eee192e3cb7, type: 3}
+    isWalkable: 0
+    editorColor: {r: 0.4745098, g: 0.33333334, b: 0.28235295, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 3
+    cellName: 
+    prefab: {fileID: 376049697246526327, guid: 233fcada8f25e494291512ac0e2609c3, type: 3}
+    isWalkable: 0
+    editorColor: {r: 1, g: 0.59607846, b: 0, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 4
+    cellName: 
+    prefab: {fileID: 1843310599072221425, guid: c85a8cd80c765db40b947bf83cc3e92d, type: 3}
+    isWalkable: 0
+    editorColor: {r: 0.38039216, g: 0.38039216, b: 0.38039216, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 5
+    cellName: 
+    prefab: {fileID: 0}
+    isWalkable: 0
+    editorColor: {r: 0.12941177, g: 0.5882353, b: 0.9529412, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 10
+    cellName: 
+    prefab: {fileID: 0}
+    isWalkable: 1
+    editorColor: {r: 1, g: 0.92156863, b: 0.23137255, a: 0}
+    editorIcon: {fileID: 0}
+  - cellType: 11
+    cellName: 
+    prefab: {fileID: 0}
+    isWalkable: 1
+    editorColor: {r: 0, g: 0.7372549, b: 0.83137256, a: 0}
+    editorIcon: {fileID: 0}
