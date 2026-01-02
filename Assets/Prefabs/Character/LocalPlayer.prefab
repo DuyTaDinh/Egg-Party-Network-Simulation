@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4279217737786240571}
-  - component: {fileID: 3790257575890060178}
   - component: {fileID: 846902032036628528}
   - component: {fileID: -4721362231458190856}
+  - component: {fileID: 1213335409542045480}
   m_Layer: 10
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -35,25 +35,6 @@ Transform:
   - {fileID: 6593440748576393228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3790257575890060178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3827404861240877244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 673247039c66460fb74658d986f262b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  playerName: 
-  moveSpeed: 9
-  upKey: 119
-  downKey: 115
-  leftKey: 97
-  rightKey: 100
 --- !u!136 &846902032036628528
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -104,6 +85,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1213335409542045480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827404861240877244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e583b53855241b2b8a0f8dd17fd038f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Player.PlayerView
+  moveSmoothing: 15
+  heightOffset: 0.5
+  meshRenderer: {fileID: 833952926345767635}
+  nameLabel: {fileID: 0}
+  scoreLabel: {fileID: 0}
 --- !u!1 &7598350179842318001
 GameObject:
   m_ObjectHideFlags: 0

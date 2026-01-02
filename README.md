@@ -1,31 +1,86 @@
-# Egg Party - Quick Overview
+# Egg Collector Game - Multiplayer Server Simulation
 
-Lightweight grid-based egg-collecting game simulation.
+A Unity multiplayer egg collection game with server simulation architecture, supporting prediction, reconciliation, and interpolation.
 
-Quick summary
-- `GameManager`: game lifecycle (spawn players, game loop, time, state, events).
-- `StageManager` + `MapGridData`: map data (ScriptableObject) — grid size, cell types, Grid↔World conversions, walkability checks.
-- `EggManager`: spawn and manage eggs, fire events on spawn/collect, configurable spawn rules.
-- `PlayerController`: base for players and bots; handles movement interpolation, score, and event hooks.
-- `LocalPlayer` / `BotPlayer`: input and AI implementations on top of `PlayerController`.
+## Architecture Overview
 
-Data model
-- `MapGridData`: width, height, cellSize, cell array, `IsWalkable`, `GridToWorld` / `WorldToGrid`.
-- `EggData`: prefab, points, spawn weight.
+This game follows a client-server architecture pattern with a simulated server running locally:
 
-Controls (local player)
-- Arrow keys or WASD move the local player on the grid. Default WASD mapping:
-  - W / UpArrow: move up
-  - S / DownArrow: move down
-  - A / LeftArrow: move left
-  - D / RightArrow: move right
+```
+┌──────────────────────────────────────────────────────────────┐
+│                         CLIENT                               │
+│  ┌─────────────┐  ┌───────────────┐  ┌───────────────────┐   │
+│  │ InputHandler│→ │ClientSimulator│→ │   PlayerView/     │   │
+│  │  (Commands) │  │  Prediction   │  │   EggView/UI      │   │
+│  └─────────────┘  │ Reconciliation│  └───────────────────┘   │
+│                   │ Interpolation │                          │
+│                   └───────────────┘                          │
+└──────────────────────────────────────────────────────────────┘
+                           ↕ Messages (via NetworkTransport)
+┌──────────────────────────────────────────────────────────────┐
+│                        SERVER                                │
+│  ┌───────────────────────────────────────────────────────┐   │
+│  │                 ServerSimulator                       │   │
+│  │  • Authoritative game state                           │   │
+│  │  • Random update intervals (0.1-0.5s)                 │   │
+│  │  • Input processing & validation                      │   │
+│  │  • Egg spawning & collision detection                 │   │
+│  │  • Winner determination                               │   │
+│  └───────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────┘
+```
 
-AI / Pathfinding 
-- Bots query `EggManager` for targets (e.g. nearest egg) and request a path on the grid.
-- Pathfinding uses the grid data (walkability from `MapGridData`) and the project's pathfinding module (`GridSystem.PathFinding`) to compute a waypoint list (A* or similar). Bots follow waypoints by setting `targetWorldPos` and using the `PlayerController` movement interpolation.
+## Key Features
 
-Unfinished: server simulator
-- Purpose: authoritative game host that validates moves, resolves conflicts (simultaneous pickups/collisions), spawns eggs and broadcasts the authoritative state to clients.
-- Responsibilities: accept player inputs, validate against `MapGridData`, advance game tick, run egg spawn logic (same rules as `EggManager`), apply scoring, and emit state snapshots.
-- Follow the concepts in Gabriel Gambetta's [Fast-Paced Multiplayer](http://www.gabrielgambetta.com/client-server-game-architecture.html) series
-- Notes: This is not implemented in the repo yet. Implement server simulator as a single-scene authoritative host for local multiplayer testing; later extract to a networked server by replacing local broadcasts with network messages.
+### Network Simulation
+- **Simulated Latency**: Configurable min/max latency (50-500ms)
+- **Packet Loss**: Configurable packet loss simulation
+- **Random Update Intervals**: Server sends updates at random 0.1-0.5s intervals
+- **Message-Based Communication**: Easy to switch to real network later
+
+### Client-Side Techniques
+- **Prediction**: Local player inputs applied immediately
+- **Reconciliation**: Server state synced with pending input replay
+- **Interpolation**: Remote players rendered with smooth interpolation
+
+### AI System
+- **State Machine**: Idle → Wander → Chase states
+- **Custom Pathfinding**: A* algorithm (no external libraries)
+- **Smart Targeting**: Bots avoid competing for same eggs
+
+### Input System
+- **Command Pattern**: All inputs wrapped as commands
+- **Input Buffer**: History for undo capability
+- **Configurable Keys**: WASD and Arrow keys
+
+## Controls
+
+| Key | Action |
+|-----|--------|
+| W / ↑ | Move Up |
+| S / ↓ | Move Down |
+| A / ← | Move Left |
+| D / → | Move Right |
+| F1 | Toggle Debug Panel |
+
+
+## Configuration Constants
+
+| Setting | Default | Location |
+|---------|---------|----------|
+| Player Count | 4 | GameManager |
+| Game Duration | 60s | GameManager |
+| Min Latency | 50ms | NetworkManager |
+| Max Latency | 150ms | NetworkManager |
+| Update Interval | 0.1-0.5s | ServerSimulator |
+| Max Eggs | 5 | ServerSimulator |
+| Egg Spawn Interval | 3s | ServerSimulator |
+| Player Speed | 4 units/s | ServerSimulator |
+| Bot Move Cooldown | 0.25s | AIController |
+| Interpolation Delay | 100ms | ClientSimulator |
+
+## Requirements
+
+- Support Unity Version: 6.3LTS and 2022.3LTS with their respective brands.
+- No external packages required
+- All pathfinding is custom-built

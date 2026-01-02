@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80721663024759176}
-  - component: {fileID: 929758383646135376}
   - component: {fileID: 3017351248557282759}
   - component: {fileID: 358008203662025581}
+  - component: {fileID: 5976110813700520668}
   m_Layer: 10
   m_Name: BotPlayer3
   m_TagString: Untagged
@@ -35,24 +35,6 @@ Transform:
   - {fileID: 5582089447651580650}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &929758383646135376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6797420061388366915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb499152523415fbf95b14a2ded4836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  playerName: 
-  moveSpeed: 5
-  thinkInterval: 0.5
-  moveDelay: 0.2
-  randomWalkChangeInterval: 2
 --- !u!136 &3017351248557282759
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -103,6 +85,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5976110813700520668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6797420061388366915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e583b53855241b2b8a0f8dd17fd038f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gameplay.Player.PlayerView
+  moveSmoothing: 15
+  heightOffset: 0.5
+  meshRenderer: {fileID: 6749724988482616200}
+  nameLabel: {fileID: 0}
+  scoreLabel: {fileID: 0}
 --- !u!1 &7602996526253078733
 GameObject:
   m_ObjectHideFlags: 0
