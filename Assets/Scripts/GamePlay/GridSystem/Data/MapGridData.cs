@@ -11,7 +11,6 @@ namespace GridSystem.Core
         public Vector2Int position;
     }
 
-
     [CreateAssetMenu(fileName = "MapGridData", menuName = "Grid System/Map Grid Data")]
     public class MapGridData : ScriptableObject
     {
@@ -77,6 +76,11 @@ namespace GridSystem.Core
             return new Vector3(x * cellSize, 0, y * cellSize) + worldOffset;
         }
 
+        public Vector3 GridToWorld(Vector2Int gridPos)
+        {
+            return GridToWorld(gridPos.x, gridPos.y);
+        }
+
         public Vector2Int WorldToGrid(Vector3 worldPos)
         {
             var localPos = worldPos - worldOffset;
@@ -127,8 +131,70 @@ namespace GridSystem.Core
                     }
                 }
             }
-
             return result;
         }
+
+        public void FillRect(int startX, int startY, int rectWidth, int rectHeight, CellType type)
+        {
+            for (int y = startY; y < startY + rectHeight; y++)
+            {
+                for (int x = startX; x < startX + rectWidth; x++)
+                {
+                    SetCell(x, y, type);
+                }
+            }
+        }
+
+        public void FillBorder(CellType type)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                SetCell(x, 0, type);
+                SetCell(x, height - 1, type);
+            }
+            for (int y = 0; y < height; y++)
+            {
+                SetCell(0, y, type);
+                SetCell(width - 1, y, type);
+            }
+        }
+
+        public void GenerateDefaultMap()
+        {
+            Initialize();
+            
+            FillRect(0, 0, width, height, CellType.Ground);
+            FillBorder(CellType.Wall);
+
+            System.Random rng = new System.Random();
+            int crateCount = (width * height) / 10;
+            
+            for (int i = 0; i < crateCount; i++)
+            {
+                int x = rng.Next(2, width - 2);
+                int y = rng.Next(2, height - 2);
+                SetCell(x, y, CellType.Crate);
+            }
+
+            SetCell(2, 2, CellType.SpawnPoint);
+            SetCell(width - 3, 2, CellType.SpawnPoint);
+            SetCell(2, height - 3, CellType.SpawnPoint);
+            SetCell(width - 3, height - 3, CellType.SpawnPoint);
+        }
+
+        public bool HasCells()
+        {
+            return cells is { Length: > 0 };
+        }
+
+#if UNITY_EDITOR
+        public void OnValidate()
+        {
+            if (cells == null || cells.Length != width * height)
+            {
+                Initialize();
+            }
+        }
+#endif
     }
 }

@@ -1,24 +1,40 @@
 ﻿using System.Collections.Generic;
-using GamePlay;
 using GridSystem.Core;
 using UnityEngine;
 
 namespace GridSystem.Runtime
 {
+
     public class MapSpawner : MonoBehaviour
     {
-        public MapGridData MapData => StageManager.Instance.mapData;
+        [Header("Map Data")]
+        [SerializeField] private MapGridData mapData;
 
-        [Header("Settings")] public bool spawnOnStart = true;
-        public bool usePooling = true;
-        public bool visualizeGrid = false;
+        [Header("Settings")]
+        [SerializeField] private bool spawnOnStart = true;
+        [SerializeField] private bool usePooling = true;
+        [SerializeField] private bool visualizeGrid = false;
+        [SerializeField] private bool generateDefaultMapIfEmpty = true;
 
-
-        private Dictionary<CellType, MapPool> pools = new();
+        private Dictionary<CellType, MapPool> pools = new Dictionary<CellType, MapPool>();
         private List<GameObject> spawnedObjects = new List<GameObject>();
         private Transform objectsParent;
 
-        void Start()
+        public MapGridData MapData
+        {
+            get => mapData;
+            set => mapData = value;
+        }
+
+        private void Awake()
+        {
+            if (mapData == null)
+            {
+                mapData = ScriptableObject.CreateInstance<MapGridData>();
+            }
+        }
+
+        private void Start()
         {
             if (spawnOnStart)
             {
@@ -30,39 +46,32 @@ namespace GridSystem.Runtime
         {
             ClearMap();
 
-            if (!MapData || !MapData.cellDatabase)
+            if (!mapData)
             {
-                Debug.LogError("MapData or CellDatabase is not assigned!");
+                Debug.LogError("MapData is not assigned!");
                 return;
             }
 
+            if (!mapData.HasCells() && generateDefaultMapIfEmpty)
+            {
+                mapData.GenerateDefaultMap();
+            }
+
             objectsParent = new GameObject("Map Objects").transform;
-
             objectsParent.SetParent(transform, false);
-
             objectsParent.localPosition = Vector3.zero;
             objectsParent.localRotation = Quaternion.identity;
             objectsParent.localScale = Vector3.one;
 
             InitializePools();
-
-            for (int y = 0; y < MapData.height; y++)
-            {
-                for (int x = 0; x < MapData.width; x++)
-                {
-                    var cellType = MapData.GetCell(x, y);
-                    if (cellType == CellType.Empty) continue;
-
-                    SpawnCell(x, y, cellType);
-                }
-            }
+            SpawnAllCells();
         }
 
         private void InitializePools()
         {
-            if (!usePooling) return;
+            if (!usePooling || mapData.cellDatabase == null) return;
 
-            foreach (var cellData in MapData.cellDatabase.cells)
+            foreach (var cellData in mapData.cellDatabase.cells)
             {
                 if (cellData.prefab && !pools.ContainsKey(cellData.cellType))
                 {
@@ -75,13 +84,28 @@ namespace GridSystem.Runtime
             }
         }
 
+        private void SpawnAllCells()
+        {
+            for (int y = 0; y < mapData.height; y++)
+            {
+                for (int x = 0; x < mapData.width; x++)
+                {
+                    var cellType = mapData.GetCell(x, y);
+                    if (cellType == CellType.Empty) continue;
+
+                    SpawnCell(x, y, cellType);
+                }
+            }
+        }
+
         private void SpawnCell(int x, int y, CellType cellType)
         {
-            var cellData = MapData.cellDatabase.GetCellData(cellType);
-            if (cellData == null || !cellData.prefab) return;
+            if (mapData.cellDatabase == null) return;
 
-            var basePos = MapData.GridToWorld(x, y);
+            var cellData = mapData.cellDatabase.GetCellData(cellType);
+            if (cellData == null || cellData.prefab == null) return;
 
+            var basePos = mapData.GridToWorld(x, y);
             Vector3 worldPos = transform.TransformPoint(basePos);
             SpawnAt(cellType, worldPos, transform.rotation);
         }
@@ -90,18 +114,20 @@ namespace GridSystem.Runtime
         {
             GameObject obj;
 
-            if (usePooling && pools.ContainsKey(cellType))
+            if (usePooling && pools.TryGetValue(cellType, out var pool))
             {
-                obj = pools[cellType].Get(worldPos, rotation);
+                obj = pool.Get(worldPos, rotation);
             }
             else
             {
-                var prefab = MapData.cellDatabase.GetCellData(cellType).prefab;
-                obj = Instantiate(prefab, worldPos, rotation, objectsParent);
+                if (mapData.cellDatabase == null) return;
+                var cellData = mapData.cellDatabase.GetCellData(cellType);
+                if (cellData?.prefab == null) return;
+
+                obj = Instantiate(cellData.prefab, worldPos, rotation, objectsParent);
             }
 
             spawnedObjects.Add(obj);
-
         }
 
         public void ClearMap()
@@ -126,27 +152,63 @@ namespace GridSystem.Runtime
             if (objectsParent != null)
             {
                 Destroy(objectsParent.gameObject);
+                objectsParent = null;
             }
         }
 
-        void OnDrawGizmos()
+        public void RefreshMap()
         {
-            if (!visualizeGrid || !MapData) return;
+            SpawnMap();
+        }
 
+        private void OnDrawGizmos()
+        {
+            if (!visualizeGrid || !mapData) return;
+
+            DrawGridLines();
+            DrawCells();
+        }
+
+        private void DrawGridLines()
+        {
             Gizmos.color = Color.gray;
 
-            for (int y = 0; y <= MapData.height; y++)
+            for (int y = 0; y <= mapData.height; y++)
             {
-                var start = transform.TransformPoint(MapData.GridToWorld(0, y));
-                var end = transform.TransformPoint(MapData.GridToWorld(MapData.width, y));
+                var start = transform.TransformPoint(mapData.GridToWorld(0, y));
+                var end = transform.TransformPoint(mapData.GridToWorld(mapData.width, y));
                 Gizmos.DrawLine(start, end);
             }
 
-            for (int x = 0; x <= MapData.width; x++)
+            for (int x = 0; x <= mapData.width; x++)
             {
-                var start = transform.TransformPoint(MapData.GridToWorld(x, 0));
-                var end = transform.TransformPoint(MapData.GridToWorld(x, MapData.height));
+                var start = transform.TransformPoint(mapData.GridToWorld(x, 0));
+                var end = transform.TransformPoint(mapData.GridToWorld(x, mapData.height));
                 Gizmos.DrawLine(start, end);
+            }
+        }
+
+        private void DrawCells()
+        {
+            if (mapData.cellDatabase == null) return;
+
+            float cellSize = mapData.cellSize;
+            Vector3 cellOffset = new Vector3(cellSize * 0.5f, 0.05f, cellSize * 0.5f);
+
+            for (int y = 0; y < mapData.height; y++)
+            {
+                for (int x = 0; x < mapData.width; x++)
+                {
+                    var cellType = mapData.GetCell(x, y);
+                    if (cellType == CellType.Empty) continue;
+
+                    var cellData = mapData.cellDatabase.GetCellData(cellType);
+                    if (cellData == null) continue;
+
+                    Gizmos.color = cellData.editorColor;
+                    var worldPos = transform.TransformPoint(mapData.GridToWorld(x, y));
+                    Gizmos.DrawCube(worldPos + Vector3.up * 0.05f, new Vector3(cellSize * 0.9f, 0.1f, cellSize * 0.9f));
+                }
             }
         }
     }
