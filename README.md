@@ -82,5 +82,3 @@ This game follows a client-server architecture pattern with a simulated server r
 ## Requirements
 
 - Support Unity Version: 6.3LTS and 2022.3LTS with their respective brands.
-- No external packages required
-- All pathfinding is custom-built

@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 15971596}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 34023105}
   - component: {fileID: 34023107}
   - component: {fileID: 34023106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 63281176}
   - component: {fileID: 63281178}
   - component: {fileID: 63281177}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 63650083}
   - component: {fileID: 63650082}
   - component: {fileID: 63650081}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_MinHeight: 20
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 1
+  m_FlexibleWidth: 2
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &63650082
@@ -434,12 +434,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 79093842}
   - component: {fileID: 79093844}
   - component: {fileID: 79093843}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 98490589}
   - component: {fileID: 98490591}
   - component: {fileID: 98490590}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 114667847}
   - component: {fileID: 114667849}
   - component: {fileID: 114667848}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,14 +750,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c577a5d0a1143ec849fdf56bb8bfb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Network.NetworkManager
-  minLatency: 0.05
-  maxLatency: 0.15
-  packetLossChance: 0
-  debugMessages: 0
-  enablePrediction: 1
-  enableReconciliation: 1
-  enableInterpolation: 1
-  interpolationDelay: 0.1
+  settings:
+    networkMode: 0
+    debugMode: 0
+    minLatency: 0.05
+    maxLatency: 0.15
+    packetLossChance: 0
+    enablePrediction: 1
+    enableReconciliation: 1
+    enableInterpolation: 1
+    interpolationDelay: 0.1
 --- !u!1 &189987340
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,7 +771,7 @@ GameObject:
   - component: {fileID: 189987341}
   - component: {fileID: 189987343}
   - component: {fileID: 189987342}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Debug Logging Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 208075327}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +892,7 @@ GameObject:
   - component: {fileID: 247077814}
   - component: {fileID: 247077816}
   - component: {fileID: 247077815}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -965,7 +967,7 @@ GameObject:
   - component: {fileID: 305398472}
   - component: {fileID: 305398474}
   - component: {fileID: 305398473}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1051,7 +1053,7 @@ GameObject:
   - component: {fileID: 330691842}
   - component: {fileID: 330691841}
   - component: {fileID: 330691840}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1119,10 +1121,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1150,7 +1152,7 @@ GameObject:
   - component: {fileID: 336556805}
   - component: {fileID: 336556807}
   - component: {fileID: 336556806}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 342443328}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1266,7 +1268,7 @@ GameObject:
   - component: {fileID: 344407385}
   - component: {fileID: 344407384}
   - component: {fileID: 344407383}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1386,7 +1388,7 @@ GameObject:
   - component: {fileID: 381201053}
   - component: {fileID: 381201055}
   - component: {fileID: 381201054}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Winner Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1465,7 +1467,7 @@ GameObject:
   - component: {fileID: 400922123}
   - component: {fileID: 400922125}
   - component: {fileID: 400922124}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Interpolation Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1550,7 +1552,7 @@ GameObject:
   - component: {fileID: 428337829}
   - component: {fileID: 428337831}
   - component: {fileID: 428337830}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1654,7 +1656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462958264}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1694,7 @@ GameObject:
   - component: {fileID: 509349137}
   - component: {fileID: 509349139}
   - component: {fileID: 509349138}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1799,7 +1801,7 @@ GameObject:
   - component: {fileID: 523590869}
   - component: {fileID: 523590868}
   - component: {fileID: 523590867}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,10 +1869,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1898,7 +1900,7 @@ GameObject:
   - component: {fileID: 530656053}
   - component: {fileID: 530656055}
   - component: {fileID: 530656054}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2010,7 +2012,7 @@ GameObject:
   - component: {fileID: 538775194}
   - component: {fileID: 538775193}
   - component: {fileID: 538775192}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2078,7 +2080,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -2146,7 +2148,7 @@ GameObject:
   - component: {fileID: 570372155}
   - component: {fileID: 570372157}
   - component: {fileID: 570372156}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2221,7 +2223,7 @@ GameObject:
   - component: {fileID: 616165892}
   - component: {fileID: 616165894}
   - component: {fileID: 616165893}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2306,7 +2308,7 @@ GameObject:
   - component: {fileID: 624069243}
   - component: {fileID: 624069245}
   - component: {fileID: 624069244}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2383,7 +2385,7 @@ GameObject:
   - component: {fileID: 625918431}
   - component: {fileID: 625918430}
   - component: {fileID: 625918429}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2426,7 +2428,7 @@ MonoBehaviour:
   m_MinHeight: 20
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 1
+  m_FlexibleWidth: 2
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &625918430
@@ -2451,12 +2453,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2483,7 +2485,7 @@ GameObject:
   - component: {fileID: 700291145}
   - component: {fileID: 700291144}
   - component: {fileID: 700291143}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2551,12 +2553,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 24
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2679,7 +2681,7 @@ GameObject:
   - component: {fileID: 766314051}
   - component: {fileID: 766314053}
   - component: {fileID: 766314052}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2795,7 +2797,7 @@ GameObject:
   - component: {fileID: 849019463}
   - component: {fileID: 849019465}
   - component: {fileID: 849019464}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2870,7 +2872,7 @@ GameObject:
   - component: {fileID: 859025446}
   - component: {fileID: 859025448}
   - component: {fileID: 859025447}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3024,7 +3026,7 @@ GameObject:
   - component: {fileID: 892077548}
   - component: {fileID: 892077550}
   - component: {fileID: 892077549}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Reconciliation Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3157,7 +3159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 983882625}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3295,7 +3297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1060958289}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3333,7 +3335,7 @@ GameObject:
   - component: {fileID: 1135747328}
   - component: {fileID: 1135747330}
   - component: {fileID: 1135747329}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3408,7 +3410,7 @@ GameObject:
   - component: {fileID: 1138633547}
   - component: {fileID: 1138633549}
   - component: {fileID: 1138633548}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Prediction Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3493,7 +3495,7 @@ GameObject:
   - component: {fileID: 1157023575}
   - component: {fileID: 1157023577}
   - component: {fileID: 1157023576}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3600,7 +3602,7 @@ GameObject:
   - component: {fileID: 1208185066}
   - component: {fileID: 1208185065}
   - component: {fileID: 1208185064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3668,10 +3670,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3699,7 +3701,7 @@ GameObject:
   - component: {fileID: 1233076452}
   - component: {fileID: 1233076454}
   - component: {fileID: 1233076453}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3775,7 +3777,7 @@ GameObject:
   - component: {fileID: 1239171316}
   - component: {fileID: 1239171315}
   - component: {fileID: 1239171314}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3818,7 +3820,7 @@ MonoBehaviour:
   m_MinHeight: 20
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 1
+  m_FlexibleWidth: 2
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &1239171315
@@ -3843,12 +3845,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3874,7 +3876,7 @@ GameObject:
   - component: {fileID: 1266235672}
   - component: {fileID: 1266235674}
   - component: {fileID: 1266235673}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3933,8 +3935,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "PRESS AWSD TO MOVE\n\nCollect Random Colored Eggs in Screen. The player
-    with the most eggs at the time limit is winner. \n"
+  m_Text: "PRESS AWSD To Move\nPRESS F1 To Show Debug Panel\nCollect Random Colored
+    Eggs in Screen. The player with the most eggs at the time limit is winner. \n"
 --- !u!222 &1266235674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3954,7 +3956,7 @@ GameObject:
   - component: {fileID: 1272129705}
   - component: {fileID: 1272129707}
   - component: {fileID: 1272129706}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4039,7 +4041,7 @@ GameObject:
   - component: {fileID: 1288813961}
   - component: {fileID: 1288813963}
   - component: {fileID: 1288813962}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4146,7 +4148,7 @@ GameObject:
   - component: {fileID: 1361068545}
   - component: {fileID: 1361068547}
   - component: {fileID: 1361068546}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4257,7 +4259,7 @@ GameObject:
   - component: {fileID: 1392698877}
   - component: {fileID: 1392698879}
   - component: {fileID: 1392698878}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4332,7 +4334,7 @@ GameObject:
   - component: {fileID: 1404695529}
   - component: {fileID: 1404695531}
   - component: {fileID: 1404695530}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4407,7 +4409,7 @@ GameObject:
   - component: {fileID: 1421475627}
   - component: {fileID: 1421475629}
   - component: {fileID: 1421475628}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4568,7 +4570,7 @@ GameObject:
   - component: {fileID: 1460419515}
   - component: {fileID: 1460419517}
   - component: {fileID: 1460419516}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4643,7 +4645,7 @@ GameObject:
   - component: {fileID: 1483265230}
   - component: {fileID: 1483265232}
   - component: {fileID: 1483265231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4719,7 +4721,7 @@ GameObject:
   - component: {fileID: 1520962886}
   - component: {fileID: 1520962888}
   - component: {fileID: 1520962887}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4828,7 +4830,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533218210}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4866,7 +4868,7 @@ GameObject:
   - component: {fileID: 1579294523}
   - component: {fileID: 1579294525}
   - component: {fileID: 1579294524}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4942,7 +4944,7 @@ GameObject:
   - component: {fileID: 1615908465}
   - component: {fileID: 1615908464}
   - component: {fileID: 1615908463}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4985,7 +4987,7 @@ MonoBehaviour:
   m_MinHeight: 20
   m_PreferredWidth: -1
   m_PreferredHeight: -1
-  m_FlexibleWidth: 1
+  m_FlexibleWidth: 2
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
 --- !u!114 &1615908464
@@ -5010,12 +5012,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -5083,7 +5085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1644959106}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5122,7 +5124,7 @@ GameObject:
   - component: {fileID: 1749110027}
   - component: {fileID: 1749110026}
   - component: {fileID: 1749110025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Debug Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5156,7 +5158,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -9.999512, y: 10}
-  m_SizeDelta: {x: 250.9, y: 491.3}
+  m_SizeDelta: {x: 278.8, y: 638.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1749110025
 MonoBehaviour:
@@ -5233,7 +5235,7 @@ GameObject:
   - component: {fileID: 1769150579}
   - component: {fileID: 1769150581}
   - component: {fileID: 1769150580}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5309,7 +5311,7 @@ GameObject:
   - component: {fileID: 1811444336}
   - component: {fileID: 1811444335}
   - component: {fileID: 1811444334}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5399,7 +5401,7 @@ GameObject:
   - component: {fileID: 1838641782}
   - component: {fileID: 1838641784}
   - component: {fileID: 1838641783}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5504,7 +5506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839131621}
   - component: {fileID: 1839131622}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Final Scores
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5568,7 +5570,7 @@ GameObject:
   - component: {fileID: 1860173886}
   - component: {fileID: 1860173885}
   - component: {fileID: 1860173884}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5636,10 +5638,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -5667,7 +5669,7 @@ GameObject:
   - component: {fileID: 1981103536}
   - component: {fileID: 1981103538}
   - component: {fileID: 1981103537}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5746,7 +5748,7 @@ GameObject:
   - component: {fileID: 2018835948}
   - component: {fileID: 2018835950}
   - component: {fileID: 2018835949}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5821,7 +5823,7 @@ GameObject:
   - component: {fileID: 2042653725}
   - component: {fileID: 2042653727}
   - component: {fileID: 2042653726}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOver Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5899,7 +5901,7 @@ GameObject:
   - component: {fileID: 2061923929}
   - component: {fileID: 2061923931}
   - component: {fileID: 2061923930}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

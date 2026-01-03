@@ -4,12 +4,17 @@ namespace Network.Transport
 {
 	public interface INetworkTransport
 	{
+		event Action<NetworkMessage> OnServerMessageReceived;
+		event Action<int, NetworkMessage> OnClientMessageReceived;
+		
 		void SendToServer(NetworkMessage message);
 		void SendToClient(int clientId, NetworkMessage message);
 		void SendToAllClients(NetworkMessage message);
-		event Action<NetworkMessage> OnServerMessageReceived;
-		event Action<int, NetworkMessage> OnClientMessageReceived;
 		void Update(float deltaTime);
-		void SetLatency(float minLatency, float maxLatency);
+		
+		float MinLatency { get; set; }
+		float MaxLatency { get; set; }
+		bool DebugMode { get; set; }
+		float PacketLossChance { get; set; }
 	}
 }

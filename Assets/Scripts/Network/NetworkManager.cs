@@ -5,6 +5,7 @@ using Network.Messages;
 using Network.Server;
 using Network.Transport;
 using UnityEngine;
+
 namespace Network
 {
 	// Bridges the server and client simulators.
@@ -12,35 +13,26 @@ namespace Network
 	{
 		public static NetworkManager Instance { get; private set; }
 
-		[Header("Network Settings")]
-		[SerializeField] private float minLatency = 0.05f;
-		[SerializeField] private float maxLatency = 0.15f;
-		[SerializeField] private float packetLossChance = 0f;
+		[SerializeField] NetworkSettings settings = new NetworkSettings();
 
-		[Header("Debug")]
-		[SerializeField] private bool debugMessages = false;
-		[SerializeField] private bool enablePrediction = true;
-		[SerializeField] private bool enableReconciliation = true;
-		[SerializeField] private bool enableInterpolation = true;
-		[SerializeField] private float interpolationDelay = 0.1f;
-
-		private SimulatedNetworkTransport transport;
-		private ServerSimulator server;
-		private ClientSimulator client;
+		private INetworkTransport transport;
+		private IServer server;
+		private IClient client;
+		private INetworkFactory factory;
 		private MapGridData mapData;
 
 		private bool isInitialized;
 
-		public ServerSimulator Server => server;
-		public ClientSimulator Client => client;
-		public SimulatedNetworkTransport Transport => transport;
+		public IServer Server => server;
+		public IClient Client => client;
+		public INetworkTransport Transport => transport;
 		public bool IsInitialized => isInitialized;
 
 		public event Action OnNetworkReady;
 
 		private void Awake()
 		{
-			if (Instance != null && Instance != this)
+			if (Instance && Instance != this)
 			{
 				Destroy(gameObject);
 				return;
@@ -50,39 +42,50 @@ namespace Network
 
 		public void Initialize(MapGridData map)
 		{
+			Initialize(map, CreateFactory());
+		}
+
+		void Initialize(MapGridData map, INetworkFactory customFactory)
+		{
 			mapData = map;
+			factory = customFactory;
 
-			transport = new SimulatedNetworkTransport();
-			transport.SetLatency(minLatency, maxLatency);
-			transport.PacketLossChance = packetLossChance;
-			transport.DebugLogMessages = debugMessages;
+			transport = factory.CreateTransport();
+			server = factory.CreateServer(mapData);
+			client = factory.CreateClient(mapData);
 
-			server = new ServerSimulator(mapData);
-			server.DebugMode = debugMessages;
-			server.OnBroadcastMessage += OnServerBroadcast;
-			server.OnSendToClient += OnServerSendToClient;
-
-			client = new ClientSimulator(mapData);
-			client.EnablePrediction = enablePrediction;
-			client.EnableReconciliation = enableReconciliation;
-			client.EnableInterpolation = enableInterpolation;
-			client.InterpolationDelay = interpolationDelay;
-			client.DebugMode = debugMessages;
-
-			transport.OnServerMessageReceived += OnTransportServerMessage;
-			transport.OnClientMessageReceived += OnTransportClientMessage;
+			BindEvents();
 
 			isInitialized = true;
 			OnNetworkReady?.Invoke();
+		}
+
+		private INetworkFactory CreateFactory()
+		{
+			switch (settings.networkMode)
+			{
+				case NetworkMode.Simulated:
+				default:
+					return new SimulatedNetworkFactory(settings);
+			}
+		}
+
+		private void BindEvents()
+		{
+			server.OnBroadcastMessage += OnServerBroadcast;
+			server.OnSendToClient += OnServerSendToClient;
+			transport.OnServerMessageReceived += OnTransportServerMessage;
+			transport.OnClientMessageReceived += OnTransportClientMessage;
 		}
 
 		private void Update()
 		{
 			if (!isInitialized) return;
 
-			transport.Update(Time.deltaTime);
-			server.Update(Time.deltaTime);
-			client.Update(Time.deltaTime);
+			float deltaTime = Time.deltaTime;
+			transport.Update(deltaTime);
+			server.Update(deltaTime);
+			client.Update(deltaTime);
 		}
 
 		public void SendInputToServer(InputMessage input)
@@ -120,66 +123,54 @@ namespace Network
 				Debug.LogError("NetworkManager not initialized!");
 				return;
 			}
-
 			server.StartGame(playerCount, duration);
 		}
 
 		public void SetLatencySettings(float min, float max)
 		{
-			minLatency = min;
-			maxLatency = max;
-			transport?.SetLatency(min, max);
+			settings.minLatency = min;
+			settings.maxLatency = max;
+			if (transport != null)
+			{
+				transport.MinLatency = min;
+				transport.MaxLatency = max;
+			}
 		}
 
 		public void SetPacketLoss(float chance)
 		{
-			packetLossChance = Mathf.Clamp01(chance);
-			if (transport != null)
-			{
-				transport.PacketLossChance = packetLossChance;
-			}
+			settings.packetLossChance = Mathf.Clamp01(chance);
+			if (transport != null) transport.PacketLossChance = settings.packetLossChance;
 		}
 
 		public void SetPredictionEnabled(bool enabled)
 		{
-			enablePrediction = enabled;
-			if (client != null)
-			{
-				client.EnablePrediction = enabled;
-			}
+			settings.enablePrediction = enabled;
+			if (client != null) client.EnablePrediction = enabled;
 		}
 
 		public void SetReconciliationEnabled(bool enabled)
 		{
-			enableReconciliation = enabled;
-			if (client != null)
-			{
-				client.EnableReconciliation = enabled;
-			}
+			settings.enableReconciliation = enabled;
+			if (client != null) client.EnableReconciliation = enabled;
 		}
 
 		public void SetInterpolationEnabled(bool enabled)
 		{
-			enableInterpolation = enabled;
-			if (client != null)
-			{
-				client.EnableInterpolation = enabled;
-			}
+			settings.enableInterpolation = enabled;
+			if (client != null) client.EnableInterpolation = enabled;
 		}
 
 		public void SetInterpolationDelay(float delay)
 		{
-			interpolationDelay = delay;
-			if (client != null)
-			{
-				client.InterpolationDelay = delay;
-			}
+			settings.interpolationDelay = delay;
+			if (client != null) client.InterpolationDelay = delay;
 		}
 
 		public void SetDebugMode(bool enabled)
 		{
-			debugMessages = enabled;
-			if (transport != null) transport.DebugLogMessages = enabled;
+			settings.debugMode = enabled;
+			if (transport != null) transport.DebugMode = enabled;
 			if (server != null) server.DebugMode = enabled;
 			if (client != null) client.DebugMode = enabled;
 		}
