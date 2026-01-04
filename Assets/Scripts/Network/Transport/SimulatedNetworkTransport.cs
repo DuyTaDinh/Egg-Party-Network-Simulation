@@ -23,8 +23,30 @@ namespace Network.Transport
 		public event Action<NetworkMessage> OnServerMessageReceived;
 		public event Action<int, NetworkMessage> OnClientMessageReceived;
 
-		public bool DebugLogMessages { get; set; } = false;
 		public float PacketLossChance { get; set; } = 0f;
+		public float MinLatency
+		{
+			get
+			{
+				return minLatency;
+			}
+			set
+			{
+				minLatency = value;
+			}
+		}
+		public float MaxLatency
+		{
+			get
+			{
+				return maxLatency;
+			}
+			set
+			{
+				maxLatency = value;
+			}
+		}
+		public bool DebugMode { get; set; } = false;
 
 		public void SetLatency(float min, float max)
 		{
@@ -52,7 +74,7 @@ namespace Network.Transport
 			};
 			pendingMessages.Add(pending);
 
-			if (DebugLogMessages)
+			if (DebugMode)
 			{
 				Debug.Log($"[Transport] Queued message to server: {message.Type} (delivery in {pending.DeliveryTime - currentTime:F3}s)");
 			}
@@ -74,7 +96,7 @@ namespace Network.Transport
 			};
 			pendingMessages.Add(pending);
 
-			if (DebugLogMessages)
+			if (DebugMode)
 			{
 				Debug.Log($"[Transport] Queued message to client {clientId}: {message.Type}");
 			}
@@ -99,12 +121,12 @@ namespace Network.Transport
 				}
 			}
 		}
-
+		
 		private void DeliverMessage(PendingMessage pending)
 		{
 			if (pending.IsServerBound)
 			{
-				if (DebugLogMessages)
+				if (DebugMode)
 				{
 					Debug.Log($"[Transport] Delivering to server: {pending.Message.Type}");
 				}
@@ -112,7 +134,7 @@ namespace Network.Transport
 			}
 			else
 			{
-				if (DebugLogMessages)
+				if (DebugMode)
 				{
 					Debug.Log($"[Transport] Delivering to client {pending.TargetClientId}: {pending.Message.Type}");
 				}

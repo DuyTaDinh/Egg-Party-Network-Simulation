@@ -8,7 +8,7 @@ using Network.GameState;
 
 namespace Network.Server
 {
-	public class ServerSimulator
+	public class ServerSimulator : IServer
 	{
 		public event Action<NetworkMessage> OnBroadcastMessage;
 		public event Action<int, NetworkMessage> OnSendToClient;
@@ -446,7 +446,7 @@ namespace Network.Server
 
 		public ServerPlayerData GetPlayer(int playerId)
 		{
-			return players.TryGetValue(playerId, out var player) ? player : null;
+			return players.GetValueOrDefault(playerId);
 		}
 
 		public bool IsRunning => isGameRunning;

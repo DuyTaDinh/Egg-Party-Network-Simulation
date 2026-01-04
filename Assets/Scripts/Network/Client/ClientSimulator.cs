@@ -8,7 +8,7 @@ using Network.GameState;
 
 namespace Network.Client
 {
-    public class ClientSimulator
+    public class ClientSimulator : IClient
     {
         public event Action OnGameStarted;
         public event Action OnGameEnded;
@@ -38,8 +38,14 @@ namespace Network.Client
         public bool DebugMode { get; set; } = false;
         public float InterpolationDelay
         {
-            get => interpolationDelay;
-            set => interpolationDelay = Mathf.Max(0.05f, value);
+            get
+            {
+                return interpolationDelay;
+            }
+            set
+            {
+                interpolationDelay = Mathf.Max(0.05f, value);
+            }
         }
 
         public ClientSimulator(MapGridData map)
@@ -380,7 +386,7 @@ namespace Network.Client
             }
             else if (buffer.Length > 0)
             {
-                var latest = buffer[buffer.Length - 1];
+                var latest = buffer[^1];
                 player.Position = Vector3.Lerp(player.Position, latest.Position, deltaTime * 10f);
                 player.InterpolatedPosition = player.Position;
             }
@@ -388,12 +394,12 @@ namespace Network.Client
 
         public ClientPlayerData GetLocalPlayer()
         {
-            return players.TryGetValue(localPlayerId, out var player) ? player : null;
+            return players.GetValueOrDefault(localPlayerId);
         }
 
         public ClientPlayerData GetPlayer(int playerId)
         {
-            return players.TryGetValue(playerId, out var player) ? player : null;
+            return players.GetValueOrDefault(playerId);
         }
 
         public IEnumerable<ClientPlayerData> GetAllPlayers()

@@ -35,7 +35,7 @@ namespace Network
         {
             networkManager = NetworkManager.Instance;
             
-            if (networkManager != null)
+            if (networkManager)
             {
                 networkManager.OnNetworkReady += Initialize;
                 if (networkManager.IsInitialized)
@@ -225,8 +225,8 @@ namespace Network
 
         private void CreateDebugPanel()
         {
-            var canvas = FindObjectOfType<Canvas>();
-            if (canvas == null)
+            var canvas = FindFirstObjectByType<Canvas>();
+            if (!canvas)
             {
                 var canvasObj = new GameObject("Debug Canvas");
                 canvas = canvasObj.AddComponent<Canvas>();
